@@ -52,7 +52,6 @@
  * limitations under the License.
  */
 
-
 package com.sun.faces.facelets.impl;
 
 import javax.faces.context.FacesContext;
@@ -60,8 +59,7 @@ import javax.faces.context.FacesContext;
 import com.sun.faces.util.Util;
 
 /**
- * Used to provide aliases to Facelets generated unique IDs with tend to be
- * womewhat long.
+ * Used to provide aliases to Facelets generated unique IDs with tend to be womewhat long.
  */
 public class IdMapper {
 
@@ -69,17 +67,14 @@ public class IdMapper {
 
     // ------------------------------------------------------------ Constructors
 
-
-    IdMapper() { }
-
+    IdMapper() {
+    }
 
     // ---------------------------------------------------------- Public Methods
-
 
     public String getAliasedId(String id) {
         return "R" + id;
     }
-
 
     public static void setMapper(FacesContext ctx, IdMapper mapper) {
 
@@ -91,7 +86,6 @@ public class IdMapper {
         }
 
     }
-
 
     public static IdMapper getMapper(FacesContext ctx) {
 
