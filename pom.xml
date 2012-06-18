@@ -5,17 +5,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
-        <relativePath>../build/parent/pom.xml</relativePath>
-    </parent>
-
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
+    <version>4.3.0-SNAPSHOT</version>
 
     <properties>
         <dependency.scope>compile</dependency.scope>
@@ -25,14 +19,36 @@
         <container.webapp>src/main/webapp-tomcat</container.webapp>
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
+
+        <version.richfaces-checkstyle>5</version.richfaces-checkstyle>
+        <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
+        <version.hornetq>2.2.7.Final</version.hornetq>
+        <version.weld>1.1.4.Final</version.weld>
+        <version.jboss-as7>7.0.2.Final</version.jboss-as7>
+        <version.slf4j>1.6.1</version.slf4j>
+        <version.hsqldb>2.0.0</version.hsqldb>
+        <version.netty>3.2.5.Final</version.netty>
         <version.gae>1.5.4</version.gae>
         <version.gae.plugin>0.9.1</version.gae.plugin>
+
         <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms-api*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
         <jbas7.manifest.dependencies>org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads</jbas7.manifest.dependencies>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava*,WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
         <jbas71.manifest.dependencies>com.google.guava,${jbas7.manifest.dependencies}</jbas71.manifest.dependencies>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -86,7 +102,8 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <!-- API and Impl bundled in weld-servlet -->
+            <version>${version.slf4j}</version>
+			<!-- API and Impl bundled in weld-servlet -->
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -96,15 +113,17 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb-j5</artifactId>
+            <version>${version.hsqldb}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
+            <version>${version.hibernate-entitymanager}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
 
-        <!-- Dependencies for Push and JMS -->
+		<!-- Dependencies for Push and JMS -->
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-runtime</artifactId>
@@ -117,25 +136,29 @@
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-core</artifactId>
+            <version>${version.hornetq}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-jms</artifactId>
+            <version>${version.hornetq}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-logging</artifactId>
+            <version>${version.hornetq}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.netty</groupId>
             <artifactId>netty</artifactId>
+            <version>${version.netty}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
-        
-        <!-- Dependencies for CDI -->
+
+		<!-- Dependencies for CDI -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -144,6 +167,7 @@
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet</artifactId>
+            <version>${version.weld}</version>
             <scope>${dependency.scope}</scope>
             <exclusions>
                 <exclusion>
@@ -153,20 +177,22 @@
             </exclusions>
         </dependency>
 
-        <!-- The rewrite library allows us to do url rewriting - used here for rewriting mobile devices to mobile specific views -->
+		<!-- The rewrite library allows us to do url rewriting - used here for 
+			rewriting mobile devices to mobile specific views -->
         <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
         </dependency>
-        
-        <!-- JBoss AS7 management -->
+
+		<!-- JBoss AS7 management -->
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-controller-client</artifactId>
+            <version>${version.jboss-as7}</version>
             <scope>provided</scope>
         </dependency>
-        
-        <!-- Jsoup used for validation of safe html input -->
+
+		<!-- Jsoup used for validation of safe html input -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -191,10 +217,35 @@
 
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
+                    <logViolationsToConsole>true</logViolationsToConsole>
+                    <violationSeverity>error</violationSeverity>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>richfaces-checkstyle-report</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.richfaces</groupId>
+                        <artifactId>richfaces-build-checkstyle</artifactId>
+                        <version>${version.richfaces-checkstyle}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
                 <configuration>
                     <classifier>${container.classifier}</classifier>
                     <outputFileNameMapping>${war.outputFileNameMapping}</outputFileNameMapping>
@@ -280,7 +331,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
+						<!-- any changes in this plugin configuration should be repeated in 
+							the "release" profile executions -->
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
                             <classifier>jbas7</classifier>
@@ -317,7 +369,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
+						<!-- any changes in this plugin configuration should be repeated in 
+							the "release" profile executions -->
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
                             <classifier>jbas71</classifier>
