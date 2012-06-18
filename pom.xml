@@ -12,6 +12,11 @@
     <version>4.3.0-SNAPSHOT</version>
 
     <properties>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.argument.target>${maven.compiler.target}</maven.compiler.argument.target>
+        <maven.compiler.argument.source>${maven.compiler.source}</maven.compiler.argument.source>
+
         <dependency.scope>compile</dependency.scope>
         <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>
@@ -229,7 +234,7 @@
                 <executions>
                     <execution>
                         <id>richfaces-checkstyle-report</id>
-                        <phase>process-classes</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
